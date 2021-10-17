@@ -1,0 +1,89 @@
+MongoDB commands for databases
+------------------------------------------
+
+View all databases --> show dbs 
+Create a new database or switch database --> use database_name 
+View the current database --> db 
+
+Delete Database --> db.dropDatabase()
+
+MongoDB commands for collections
+--------------------------------------------
+
+Show Collections --> show collections 
+Create a collection named 'comments' --> db.createCollection('comments')
+Delete a Collection named content --> db.content.drop()
+
+MongoDB commands for Documents
+--------------------------------------------
+Show all documents --> db.<collection_name>.find()
+
+Show all documents prettified --> db.<collection_name>.find().pretty
+
+Insert one document --> db.<collection_name>.insert({
+... 'name':'Swapnil',
+... 'lang':'Javascript'
+... })
+
+
+Insert many documents --> 
+db.comments.insertMany([
+    {
+        'name':'Swapnil',
+        'lang':'Python'
+    },
+    {
+        'name':'Abinash',
+        'lang':'Javascript'
+    }
+])
+
+
+Delete Document -> db.comments.remove({name: 'Swapnil'})
+
+
+
+Search in a MongoDb Database
+---------------------------------------------
+
+db.comments.find({lang:'Python'})
+
+Search for the first row matching the object --> db.comments.findOne({lang:'Python'})
+
+Limit the Number of rows or documents in output
+----------------------------------------------
+db.comments.find({lang:'Python'}).limit(2)
+
+Count the number of documents in the output
+----------------------------------------------
+db.comments.find().count()
+
+## comments is the collection name
+
+
+Update a Document 
+--------------------------------------------
+db.comments.update({name:'Swapnil'},
+{
+    'name':'Swapnil',
+    'lang':'C++'
+})
+
+
+If the name is not there in the collection, then the below query will add the document into the collection if the upsert property is true
+db.comments.update({name: 'Shubham'},
+{'name': 'Shubham',
+    'lang': 'JavaScript',
+    'member_since': 51
+}, {upsert: true})
+
+
+mongo db Rename Operator --> 
+db.comments.update({},
+{$rename:{
+        'lang':'language'
+}})
+
+
+
+
